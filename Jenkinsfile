@@ -63,20 +63,21 @@
 
 
 
+
 pipeline{
     agent any
 
-    environment {
-        BRANCH = 'main'
-    }
+  
     stages{
-        stage("A"){
+        stage("main"){
             when {
-                    environment ignoreCase: true, name: 'BRANCH', value: 'main'
-                    }
+                branch comparator: 'EQUALS', pattern: 'main'
+                }
+
+          
             steps{
                
-                                    echo "========executing A========"
+                                    echo "========executing main========"
             }
             post{
                 always{
@@ -84,10 +85,11 @@ pipeline{
                 }
             }
         }
-        stage ("b") {
-             when {
-                    environment ignoreCase: true, name: 'BRANCH', value: 'test'
-                    }
+        stage ("test") {
+                        when {
+                branch comparator: 'EQUALS', pattern: 'test'
+                }
+
             steps{
               
                                     echo "========executing b======="
@@ -101,7 +103,7 @@ pipeline{
              }
 
              steps {
-                echo " not form any branch"
+                echo " not form any branch1"
              }
 
         }
